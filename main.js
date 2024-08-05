@@ -25,7 +25,7 @@ wss.on("connection", function (ws, req) {
 
   if (wss.clients.size === 1) {
     console.log("first connection. starting keepalive");
-    keepServerAlive();
+   // keepServerAlive();
   }
 
   ws.on("message", (data) => {
@@ -67,7 +67,7 @@ const broadcast = (ws, message, includeSelf) => {
 /**
  * Sends a ping message to all connected clients every 50 seconds
  */
- /*const keepServerAlive = () => {
+ const keepServerAlive = () => {
   keepAliveId = setInterval(() => {
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
@@ -75,7 +75,7 @@ const broadcast = (ws, message, includeSelf) => {
       }
     });
   }, 50000);
-};*/
+};
 
 
 app.get('/', (req, res) => {
