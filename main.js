@@ -2,7 +2,10 @@ const http = require("http");
 const express = require("express");
 const url = require("url");
 const app = express();
-const userMap = new Map();
+
+const employeesOnlyMap = new Map();
+const tournamentMap = new Map();
+const tournamentsOfClubMap = new Map();
 
 app.use(express.static("public"));
 // require("dotenv").config();
@@ -24,10 +27,14 @@ console.log(`Server started on port ${serverPort} in stage ${process.env.NODE_EN
 wss.on("connection", function (ws, req) {
   console.log("Connection Opened");
   console.log("Client size: ", wss.clients.size);
+
   const queryParams = url.parse(req.url, true).query;
-  const connectionId = queryParams.connectionId;
-  const commonId = queryParams.commonId;
-  console.log("query params: ", connectionId, commonId);
+  
+  const clientId = queryParam.clientId;
+  const clubId = queryParams.clubId;
+  const tournamentId = queryParams.tournamentId;
+  const employeesOnly = !!queryParams.employeesOnly;
+  console.log("query params: ", clientId, clubId, tournamentId, employeesOnly);
 
   if (wss.clients.size === 1) {
     console.log("first connection. starting keepalive");
