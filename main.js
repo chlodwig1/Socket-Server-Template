@@ -64,7 +64,7 @@ wss.on("connection", function (ws, req) {
       return;
     }
 
-    console.log(data.scope);
+    console.log(stringifiedData);
     
     broadcast(ws, stringifiedData);
   });
