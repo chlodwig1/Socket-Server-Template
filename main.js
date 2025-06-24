@@ -30,7 +30,7 @@ wss.on("connection", function (ws, req) {
 
   const queryParams = url.parse(req.url, true).query;
   
-  const clientId = queryParam.clientId;
+  const clientId = queryParams.clientId;
   const clubId = queryParams.clubId;
   const tournamentId = queryParams.tournamentId;
   const employeesOnly = !!queryParams.employeesOnly;
