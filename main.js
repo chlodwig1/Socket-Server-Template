@@ -36,6 +36,22 @@ wss.on("connection", function (ws, req) {
   const employeesOnly = !!queryParams.employeesOnly;
   console.log("query params: ", clientId, clubId, tournamentId, employeesOnly);
 
+/*
+ query params:  81399 365214 undefined true
+  query params:  87869 365214 1000132 false
+*/
+
+  if (clientId !== undefined && clubId !== undefined) {
+    if (clubId tournamentId === undefined) {
+      tournamentsOfClubMap.set(clubId, ws);
+    } else if (employeesOnly === true) {
+      employeesOnlyMap.set(clubId, ws);
+    } else {
+      tournamentMap.set(tournamentId, ws);
+    }
+  }
+  
+  
   if (wss.clients.size === 1) {
     console.log("first connection. starting keepalive");
    // keepServerAlive();
@@ -47,7 +63,10 @@ wss.on("connection", function (ws, req) {
       console.log('keepAlive');
       return;
     }
-    broadcast(ws, stringifiedData, false);
+
+    console.log(data.scope);
+    
+    broadcast(ws, stringifiedData);
   });
 
   ws.on("close", (data) => {
@@ -61,7 +80,7 @@ wss.on("connection", function (ws, req) {
 });
 
 // Implement broadcast function because of ws doesn't have it
-const broadcast = (ws, message, includeSelf) => {
+const broadcast = (ws, message) => {
   if (includeSelf) {
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
