@@ -42,7 +42,7 @@ wss.on("connection", function (ws, req) {
 */
 
   if (clientId !== undefined && clubId !== undefined) {
-    if (clubId tournamentId === undefined) {
+    if (tournamentId === undefined) {
       tournamentsOfClubMap.set(clubId, ws);
     } else if (employeesOnly === true) {
       employeesOnlyMap.set(clubId, ws);
