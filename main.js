@@ -81,19 +81,11 @@ wss.on("connection", function (ws, req) {
 
 // Implement broadcast function because of ws doesn't have it
 const broadcast = (ws, message) => {
-  if (includeSelf) {
-    wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
-  } else {
     wss.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(message);
       }
     });
-  }
 };
 
 /**
