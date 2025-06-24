@@ -1,6 +1,6 @@
 const http = require("http");
 const express = require("express");
-const url = required("url");
+const url = require("url");
 const app = express();
 
 app.use(express.static("public"));
